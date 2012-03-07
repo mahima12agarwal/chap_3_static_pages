@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
  before_filter :authenticate, :only => [:edit, :update]
+ before_filter :authenticate, :except => [:show, :new, :create]
+
   def new
     @user = User.new
     @title="Sign Up"
@@ -10,10 +12,11 @@ class UsersController < ApplicationController
     @users = User.paginate(:page => params[:page])
   end
 
-  def show
-  @user = User.find(params[:id])
-  @title = @user.name
-  end
+ def show
+   @user = User.find(params[:id])
+   @title = @user.name
+   @microposts = @user.microposts.paginate(:page => params[:page])
+ end
 
   def create
     @user = User.new(params[:user])
@@ -47,11 +50,20 @@ def destroy
     flash[:success] = "User destroyed."
     redirect_to users_path
   end
-def show
+def following
+    @title = "Following"
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(:page => params[:page])
-    @title = @user.name
+    @users = @user.following.paginate(:page => params[:page])
+    render 'show_follow'
   end
+
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(:page => params[:page])
+    render 'show_follow'
+  end
+
 
  private
     def authenticate

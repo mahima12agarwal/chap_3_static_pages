@@ -56,5 +56,5 @@ describe "when not signed in" do
                                          :content => "Profile")
     end
 
-
+   end
 end

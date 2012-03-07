@@ -14,7 +14,7 @@ describe UsersController do
       response.should be_success
     end
 	it "should have the right title" do
-      get :new,
+      get :new
       response.should have_selector("title", :content => "Sign Up")
     end
 
@@ -83,7 +83,7 @@ describe UsersController do
     end
 
   end
-  end
+
    describe "GET 'edit'" do
 
     before(:each) do
@@ -158,7 +158,7 @@ describe "PUT 'update'" do
       end
     end
   end
-describe "authentication of edit/update pages" do
+ describe "authentication of edit/update pages" do
 
     before(:each) do
       @user = Factory(:user)
@@ -286,7 +286,7 @@ describe "DELETE 'destroy'" do
         response.should redirect_to(users_path)
       end
     end
-  end
+    end
   
  describe "GET 'show'" do
     before(:each) do
